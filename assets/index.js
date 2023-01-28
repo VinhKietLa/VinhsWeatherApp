@@ -4,7 +4,22 @@ let searcBtn = document.getElementById("search-button");
 
 searcBtn.addEventListener("click", function (event) {
 event.preventDefault();
+
 let city = searchInput.value;
+
+let location = localStorage.getItem("Location");
+
+let newLocationHistory = {name : city};
+console.log(newLocationHistory);
+if(location) {
+    location = JSON.parse(location);
+    location.push(newLocationHistory);
+} else {
+    location = [newLocationHistory];
+}
+
+
+localStorage.setItem("Location", JSON.stringify(location));
 
   let queryURL =
     `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=3a26ce967f024afe0e2f03c5159310b9`;
@@ -14,8 +29,6 @@ let city = searchInput.value;
     .then((cityList) => {
       let city = cityList[0];
       console.log(city);
-      //   console.log(city.lat);
-      //   console.log(city.lon);
        fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&speed=miles/hour&temp=celcius&appid=3a26ce967f024afe0e2f03c5159310b9`
       )
@@ -93,8 +106,8 @@ let city = searchInput.value;
 //PSEUDO CODE//
 
 //what do I need to store and retrieve from local storage for it to work when the user clicks on the city search history for the function to work?
-        // city name so that the query runs for that city.
-        // 
+        // city name so that the query runs for that city plus the user input?
+        // get these items in the storage and use it in the function if the user clicks on a search area? 
 
 // I've created the required function to show both the weather on the current day as well as the five days for a predetermined city.
 
