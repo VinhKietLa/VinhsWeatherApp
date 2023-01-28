@@ -46,11 +46,23 @@
 
       <div class="col-lg-9 pb-3">
         <!-- This will store todays weather-->
-        <section id="today" class="mt-3" role="region" aria-live="polite">
+        <section id="today" class="mt-3 container" role="region" aria-live="polite">
 
           <h1>Todays Weather</h1>
 
-          <div id="todaysWeather"></div>
+
+            <div class="row todaysWeather">
+
+              <div class="card col">
+                <div class="card-body">
+                  <h5 class="card-date" id="card-date">29/01/23</h5>
+                  <p>Icon</p>
+                  <p class="card-text" id="card-temp">Temp:</p>
+                  <p class="card-text" id="card-wind">Wind:</p>
+                  <p class="card-text" id="card-humid">Humidity:</p>
+                </div>
+              </div>
+
         </section>
 
         <!-- This will store the next 5 days weather-->

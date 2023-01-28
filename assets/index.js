@@ -18,9 +18,11 @@ fetch(queryURL)
     let result = weather.list;
     let requiredIndexes = [2,10,18,26,34,39];
     let filteredResult = requiredIndexes.map(index => result[index]);
-    console.log(filteredResult);
+    
+    
+    // console.log(filteredResult); this returns the 6 arrays I need to loop through and display the weather stats
 
-    console.log(weather);
+    // console.log(weather);this returns the results
 
     let test = moment(1674874800, "X").format("DD/MM/YYYY HH:mm:ss");// this converts the DT unix timestamp
     
@@ -29,6 +31,24 @@ fetch(queryURL)
         console.log(index)
     }
 })
+
+
+//PSEUDO CODE//
+
+
+// I've created the required function to show both the weather on the current day as well as the five days for a predetermined city. 
+
+ //I need to show these required values from the current day as well as the next 5 days.
+
+//after this is done I need to workout how to take the city input from the user and apply this to the functions I already have.
+
+//Once that is done, I need to store the results in local storage and show these in the recent searches. 
+
+//When the user clicks on one of the results in the search history it should update and show the weather stats for that city.
+
+
+
+
 
 //for 6pm snapshot each day
 
