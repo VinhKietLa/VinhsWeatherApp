@@ -13,8 +13,32 @@ let city = searchInput.value;
     .then((response) => response.json())
     .then((cityList) => {
       let city = cityList[0];
+      console.log(city);
       //   console.log(city.lat);
       //   console.log(city.lon);
+       fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&speed=miles/hour&temp=celcius&appid=3a26ce967f024afe0e2f03c5159310b9`
+      )
+      .then((response) => response.json())
+      .then((weather) => {
+            console.log(weather);
+
+            let cardDateToday = document.getElementById("card-date-today");
+            let weatherIconToday = document.querySelector(".weatherIcon-today");
+            let cardTempToday = document.getElementById("card-temp-today");
+            let cardWindToday = document.getElementById("card-wind-today");
+            let cardHumidToday = document.getElementById("card-humid-today");
+
+            let icons = weather.weather[0].icon;
+            console.log(icons);
+           cardDateToday.textContent = moment(weather.dt, "X").format("DD/MM/YYYY");
+           weatherIconToday.setAttribute("src","http://openweathermap.org/img/w/" + icons + ".png");
+            cardTempToday.textContent = "Temp " + weather.main.temp + " °C";
+            cardWindToday.textContent = "Wind " + weather.wind.speed + " MPH";
+            cardHumidToday.textContent = "Humidity " + weather.main.humidity + " %";
+          
+      })
+
       return fetch(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&speed=miles/hour&temp=celcius&appid=3a26ce967f024afe0e2f03c5159310b9`
       );
@@ -22,15 +46,17 @@ let city = searchInput.value;
     .then((response) => response.json())
     .then((weather) => {
       let result = weather.list;
-      let requiredIndexes = [2, 10, 18, 26, 34, 39];
+      let requiredIndexes = [2, 10, 18, 26, 34];
       let filteredResult = requiredIndexes.map((index) => result[index]);
 
-      // console.log(filteredResult); this returns the 6 arrays I need to loop through and display the weather stats
+      console.log(filteredResult)
+    //   ; this returns the 6 arrays I need to loop through and display the weather stats
 
-      console.log(weather)
+      console.log(result)
     // ;this returns the results
 
-      let test = moment(1674874800, "X").format("DD/MM/YYYY HH:mm:ss"); // this converts the DT unix timestamp
+    //   let test = moment(1674874800, "X").format("DD/MM/YYYY HH:mm:ss"); 
+      // this converts the DT unix timestamp
 
       let cardDate = document.querySelectorAll("#card-date");
       let weatherIcon = document.querySelectorAll(".weatherIcon");
@@ -65,6 +91,10 @@ let city = searchInput.value;
 //weather.main.humidity
 
 //PSEUDO CODE//
+
+//what do I need to store and retrieve from local storage for it to work when the user clicks on the city search history for the function to work?
+        // city name so that the query runs for that city.
+        // 
 
 // I've created the required function to show both the weather on the current day as well as the five days for a predetermined city.
 
