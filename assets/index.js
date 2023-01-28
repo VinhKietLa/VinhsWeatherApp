@@ -40,9 +40,9 @@ fetch(queryURL)
         console.log(icons);
         cardDate[i].textContent = moment(weather.dt, "X").format("DD/MM/YYYY");
         weatherIcon[i].setAttribute("src", "http://openweathermap.org/img/w/" + icons + ".png")
-        cardTemp[i].textContent = weather.main.temp;
-        cardWind[i].textContent = weather.wind.speed;
-        cardHumid[i].textContent = weather.main.humidity;
+        cardTemp[i].textContent = "Temp " + weather.main.temp + " °C"
+        cardWind[i].textContent = "Wind " + weather.wind.speed + " MPH";
+        cardHumid[i].textContent = "Humidity " + weather.main.humidity + " %";
     }
 })
 
