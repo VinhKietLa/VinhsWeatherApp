@@ -7,8 +7,8 @@ fetch(queryURL)
         .then((response) => response.json())
         .then((cityList) => {
           let city = cityList[0]
-          console.log(city.lat);
-          console.log(city.lon);
+        //   console.log(city.lat);
+        //   console.log(city.lon);
     return fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&speed=miles/hour&temp=celcius&appid=3a26ce967f024afe0e2f03c5159310b9`)
 })
 
@@ -25,12 +25,31 @@ fetch(queryURL)
     // console.log(weather);this returns the results
 
     let test = moment(1674874800, "X").format("DD/MM/YYYY HH:mm:ss");// this converts the DT unix timestamp
+
+    let cardDate = document.querySelectorAll('#card-date');
+    let weatherIcon = document.querySelectorAll('.weatherIcon');
+    let cardTemp = document.querySelectorAll('#card-temp');
+    let cardWind = document.querySelectorAll('#card-wind');
+    let cardHumid = document.querySelectorAll('#card-humid');
+
     
     for (let i = 0; i < filteredResult.length; i++) {
-        const index = filteredResult[i];
-        console.log(index)
+        const weather = filteredResult[i];
+        console.log(weather);
+        let icons = weather.weather[0].icon
+        console.log(icons);
+        cardDate[i].textContent = moment(weather.dt, "X").format("DD/MM/YYYY");
+        weatherIcon[i].setAttribute("src", "http://openweathermap.org/img/w/" + icons + ".png")
+        cardTemp[i].textContent = weather.main.temp;
+        cardWind[i].textContent = weather.wind.speed;
+        cardHumid[i].textContent = weather.main.humidity;
     }
 })
+
+//weather.weather[0].icon
+//weather.main.temp
+//weather.wind.speed
+//weather.main.humidity
 
 
 //PSEUDO CODE//
