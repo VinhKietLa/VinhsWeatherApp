@@ -105,6 +105,13 @@ localStorage.setItem("Location", JSON.stringify(location));
 
 //PSEUDO CODE//
 
+
+//localstorage is now complete
+
+//I need to get the storage names and display these in the history section//
+//Add an event listener to the history section and if user clicks on the history name, add a condition to use the second value pair in the fetch query endpoint. 
+
+
 //what do I need to store and retrieve from local storage for it to work when the user clicks on the city search history for the function to work?
         // city name so that the query runs for that city plus the user input?
         // get these items in the storage and use it in the function if the user clicks on a search area? 
