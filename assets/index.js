@@ -1,10 +1,13 @@
 let todaysWeather = document.getElementById("todaysWeather");
+let searchInput = document.getElementById('search-input');
 let searcBtn = document.getElementById("search-button");
 
 searcBtn.addEventListener("click", function (event) {
-  event.preventDefault();
+event.preventDefault();
+let city = searchInput.value;
+
   let queryURL =
-    "http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=3a26ce967f024afe0e2f03c5159310b9";
+    `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=3a26ce967f024afe0e2f03c5159310b9`;
 
   fetch(queryURL)
     .then((response) => response.json())
@@ -24,7 +27,8 @@ searcBtn.addEventListener("click", function (event) {
 
       // console.log(filteredResult); this returns the 6 arrays I need to loop through and display the weather stats
 
-      // console.log(weather);this returns the results
+      console.log(weather)
+    // ;this returns the results
 
       let test = moment(1674874800, "X").format("DD/MM/YYYY HH:mm:ss"); // this converts the DT unix timestamp
 
@@ -36,9 +40,9 @@ searcBtn.addEventListener("click", function (event) {
 
       for (let i = 0; i < filteredResult.length; i++) {
         const weather = filteredResult[i];
-        console.log(weather);
+        // console.log(weather);
         let icons = weather.weather[0].icon;
-        console.log(icons);
+        // console.log(icons);
         cardDate[i].textContent = moment(weather.dt, "X").format("DD/MM/YYYY");
         weatherIcon[i].setAttribute(
           "src",
