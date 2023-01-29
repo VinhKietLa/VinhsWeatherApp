@@ -1,19 +1,53 @@
-#today {
+body {
+    background-color: #313544ff!important;
+    color: #55e0ff!important;
+}
+
+
+.weather-header {
+    background-color: black;
+}
+
+#search-input {
+    border-radius: 2px;
+    border: none;
+}
+
+#search-button, #clear {
+    background-color: #55e0ff;
+    color: white;
+    border-radius: 1px;
+    height: 50px;
+    border: none;
+    font-weight: bold;
+    margin-left: 0.5rem;
+    width: 150px;
+}
+
+
+#today, #forecast {
     border: 1px solid black;
+    background-color: black!important;
 }
 
+.card{
+    background-color: #1D2431ff!important;
 
-#forecast {
-    border: 1px solid black;
 }
 
-.lol {
-    padding-left: 0.5rem;
+.searchClearBtnSection {
+    padding-left: 1rem;
 }
 
-/* #historyBtn {
-    width: 30px;
-} */
+#historyBtn {
+    background-color: #1D2431ff;
+    color: white;
+    border: none;
+    height: 50px;
+    border: 1px solid white;
+    margin: 0.5rem;
+
+}
 
 @media (min-width: 576px) { 
 
@@ -29,7 +63,7 @@
     #searchHistorySection {
         margin-top: 0.2rem;
     }
-
-
-
+    #fiveDaySection {
+        flex-direction: row;
+    }
  }
