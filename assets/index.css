@@ -11,6 +11,12 @@ body {
 #search-input {
     border-radius: 2px;
     border: none;
+    height: 50px;
+    width: 100%;
+}
+
+.input-group {
+    flex-direction: column;
 }
 
 #search-button, #clear {
@@ -21,13 +27,16 @@ body {
     border: none;
     font-weight: bold;
     margin-left: 0.5rem;
-    width: 150px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100px;
 }
 
 
 #today, #forecast {
     border: 1px solid black;
     background-color: black!important;
+    text-align: center;
 }
 
 .card{
@@ -35,8 +44,19 @@ body {
 
 }
 
-.searchClearBtnSection {
+#searchHistorySection h6 {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* .searchClearBtnSection {
     padding-left: 1rem;
+
+} */
+
+#history {
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 #historyBtn {

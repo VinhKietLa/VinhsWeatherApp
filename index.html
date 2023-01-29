@@ -20,8 +20,9 @@
 
   <!-- max-width for ultra wide resolutions -->
   <div class="container-fluid" style="max-width: 1400px">
+
     <div class="row">
-      <h2 id="form-heading" class="mt-1 align-items-center">
+      <h2 id="form-heading" class="mt-1r">
         Search for a City
       </h2>
 
@@ -33,13 +34,13 @@
             <input class="form-input weather-search" type="text" id="search-input" placeholder="e.g London"
               aria-labelledby="form-heading" aria-controls="today forecast"/>
 
-            <div class ="searchClearBtnSection">
+            <div class ="searchClearBtnSection col-12 text-center">
 
               <button type="submit" id="search-button" aria-label="submit search">
                 Search
               </button>
 
-              <button id="clear" aria-label="clear searh history">Clear history</button>
+              <button id="clear" aria-label="clear searh history">Clear</button>
 
             </div>
           </div>
@@ -49,14 +50,14 @@
       <!-- this will store a history of the most recent searches in local storage-->
       <div class = "col" id="searchHistorySection">
         <h6>YOUR HISTORY</h6>
-        <div class="list-group col" id="history">
+        <div class="list-group col-12" id="history">
         </div>
       </div>
     </div>
   </div>
 
 
-  <!-- This will store todays weather-->
+  <!-- This will store today and 5 day weather-->
   <div class="container-fluid">
       <section id="today" class="mt-3 container" role="region" aria-live="polite">
 
@@ -82,7 +83,7 @@
         <h1>5 day forecast</h1>
         <div class="row" id="fiveDaySection">
 
-          <div class="card col-6">
+          <div class="card col-12">
             <div class="card-body">
               <h5 class="card-date" id="card-date"></h5>
               <img class="weatherIcon img-fluid"></img>
@@ -92,7 +93,7 @@
             </div>
           </div>
 
-          <div class="card col-6">
+          <div class="card col-12">
             <div class="card-body">
               <h5 class="card-title" id="card-date"></h5>
               <img class="weatherIcon"></img>
@@ -102,7 +103,7 @@
             </div>
           </div>
 
-          <div class="card col-6">
+          <div class="card col-12">
             <div class="card-body">
               <h5 class="card-title" id="card-date"></h5>
               <img class="weatherIcon"></img>
@@ -112,7 +113,7 @@
             </div>
           </div>
 
-          <div class="card col-6">
+          <div class="card col-12">
             <div class="card-body">
               <h5 class="card-title" id="card-date"></h5>
               <img class="weatherIcon"></img>
