@@ -7,31 +7,32 @@ let clearHistory = document.getElementById("clear");
 
 function query (event) {
   event.preventDefault();
+  console.log(searchInput.value)
+if(event.target.id === "search-button" && searchInput.value == '') {
+  return alert('You must enter a city name!')
+}
+
 
   let city;
-    console.log(city);
- if(searchInput.value == '') {
+ if(searchInput.value === '') {
     city = existingCity;
-    console.log(city);
 
  } else {
   city = searchInput.value;
-  console.log(city);
 
  }
- console.log(city);
 
-  let location = localStorage.getItem("Location");
+  let savedLocation = localStorage.getItem("Location");
 
   let newLocationHistory = { name: city };
-  if (location) {
-    location = JSON.parse(location);
-    location.push(newLocationHistory);
+  if (savedLocation) {
+    savedLocation = JSON.parse(savedLocation);
+    savedLocation.push(newLocationHistory);
   } else {
-    location = [newLocationHistory];
+    savedLocation = [newLocationHistory];
   }
 
-  localStorage.setItem("Location", JSON.stringify(location));
+  localStorage.setItem("Location", JSON.stringify(savedLocation));
 
   let queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=3a26ce967f024afe0e2f03c5159310b9`;
 
@@ -74,10 +75,6 @@ function query (event) {
       let result = weather.list;
       let requiredIndexes = [7, 15, 23, 31, 39];
       let filteredResult = requiredIndexes.map((index) => result[index]);
-
-      //   let test = moment(1674874800, "X").format("DD/MM/YYYY HH:mm:ss");
-      // this converts the DT unix timestamp
-
       let cardDate = document.querySelectorAll("#card-date");
       let weatherIcon = document.querySelectorAll(".weatherIcon");
       let cardTemp = document.querySelectorAll("#card-temp");
@@ -86,9 +83,7 @@ function query (event) {
 
       for (let i = 0; i < filteredResult.length; i++) {
         const weather = filteredResult[i];
-        // console.log(weather);
         let icons = weather.weather[0].icon;
-        // console.log(icons);
         cardDate[i].textContent = moment(weather.dt, "X").format("DD/MM/YYYY");
         weatherIcon[i].setAttribute(
           "src",
@@ -113,7 +108,7 @@ console.log(retrievedParsedLocation);
     let message = retrievedParsedLocation[i].name;
 
     let button = document.createElement("button");
-    
+
     button.textContent = message;
     button.id = "historyBtn";
     searchHistory.prepend(button);
@@ -124,18 +119,16 @@ displayHistory();
 
 
 clearHistory.addEventListener("click", function() {// this clears the local history in turn removing all the buttons.
-    console.log('hi');
-
   localStorage.clear();
 });
+
+let existingCity;
 
 searchHistory.addEventListener('click', function(event) {//runs when you click a button in the history
     event.preventDefault();
     if(event.target.matches("button")) {
         searchInput.value = '';
         let element = event.target;
-        console.log('hi');
-        console.log(element.innerHTML);
         let evenHTML = element.innerHTML;
 
         existingCity = evenHTML;
@@ -145,7 +138,7 @@ searchHistory.addEventListener('click', function(event) {//runs when you click a
 
 searchBtn.addEventListener('click', query);//search button //
 
-let existingCity;
+
 //issues//
 
 //displayhistory is giving an error because there isn't anything in the history when you first load the page.
