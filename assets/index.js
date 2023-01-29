@@ -2,6 +2,8 @@ let todaysWeather = document.getElementById("todaysWeather");
 let searchInput = document.getElementById('search-input');
 let searcBtn = document.getElementById("search-button");
 
+let searchHistory = document.getElementById("history");
+let clearHistory = document.getElementById('clear');
 searcBtn.addEventListener("click", function (event) {
 event.preventDefault();
 
@@ -92,7 +94,36 @@ localStorage.setItem("Location", JSON.stringify(location));
         cardHumid[i].textContent = "Humidity " + weather.main.humidity + " %";
       }
     });
+    displayHistory();
 });
+
+
+function displayHistory() {
+    searchHistory.innerHTML = ''
+    let storedLocation = localStorage.getItem("Location");
+    console.log(storedLocation);
+    let retrievedParsedLocation = JSON.parse(storedLocation);
+
+    for (let i = 0; i < retrievedParsedLocation.length; i++) {
+
+    let message = retrievedParsedLocation[i].name
+
+    let button = document.createElement('button');
+
+    button.textContent = message;
+    
+    searchHistory.appendChild(button);
+    }
+}
+displayHistory();
+
+clearHistory.addEventListener('click', () => {
+    localStorage.clear();
+})
+
+
+
+
 
 // console.log(filteredResult); this returns the 6 arrays I need to loop through and display the weather stats
 

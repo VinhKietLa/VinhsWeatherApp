@@ -25,6 +25,7 @@
         <h2 id="form-heading" class="mt-1 h3 form-label">
           Search for a City:
         </h2>
+
         <form id="search-form" class="form">
           <div class="form-inline form-group">
             <div class="input-group">
@@ -35,6 +36,7 @@
                   Search
                 </button>
                 <hr class="hr weather-hr" />
+                <button id="clear">Clear</button>
               </div>
             </div>
           </div>
@@ -44,24 +46,24 @@
         <div class="list-group" id="history"></div>
       </aside>
 
+
+      <!-- This will store todays weather-->
       <div class="col-lg-9 pb-3">
-        <!-- This will store todays weather-->
         <section id="today" class="mt-3 container" role="region" aria-live="polite">
 
           <h1>Todays Weather</h1>
 
+          <div class="row todaysWeather">
 
-            <div class="row todaysWeather">
-
-              <div class="card col">
-                <div class="card-body">
-                  <h5 class="card-date" id="card-date-today"></h5>
-                  <img class="weatherIcon-today"></img>
-                  <p class="card-text" id="card-temp-today"></p>
-                  <p class="card-text" id="card-wind-today"></p>
-                  <p class="card-text" id="card-humid-today"></p>
-                </div>
+            <div class="card col">
+              <div class="card-body">
+                <h5 class="card-date" id="card-date-today"></h5>
+                <img class="weatherIcon-today"></img>
+                <p class="card-text" id="card-temp-today"></p>
+                <p class="card-text" id="card-wind-today"></p>
+                <p class="card-text" id="card-humid-today"></p>
               </div>
+            </div>
 
         </section>
 
@@ -81,45 +83,45 @@
               </div>
             </div>
 
-              <div class="card col">
-                <div class="card-body">
-                  <h5 class="card-title" id="card-date"></h5>
-                  <img class="weatherIcon"></img>
-                  <p class="card-text" id="card-temp"></p>
-                  <p class="card-text" id="card-wind"></p>
-                  <p class="card-text" id="card-humid"></p>
-                </div>
+            <div class="card col">
+              <div class="card-body">
+                <h5 class="card-title" id="card-date"></h5>
+                <img class="weatherIcon"></img>
+                <p class="card-text" id="card-temp"></p>
+                <p class="card-text" id="card-wind"></p>
+                <p class="card-text" id="card-humid"></p>
               </div>
-
-              <div class="card col">
-                <div class="card-body">
-                  <h5 class="card-title" id="card-date"></h5>
-                  <img class="weatherIcon"></img>
-                  <p class="card-text" id="card-temp"></p>
-                  <p class="card-text" id="card-wind"></p>
-                  <p class="card-text" id="card-humid"></p>
-                </div>
             </div>
 
-              <div class="card col">
-                <div class="card-body">
-                  <h5 class="card-title" id="card-date"></h5>
-                  <img class="weatherIcon"></img>
-                  <p class="card-text" id="card-temp"></p>
-                  <p class="card-text" id="card-wind"></p>
-                  <p class="card-text" id="card-humid"></p>
-                </div>
+            <div class="card col">
+              <div class="card-body">
+                <h5 class="card-title" id="card-date"></h5>
+                <img class="weatherIcon"></img>
+                <p class="card-text" id="card-temp"></p>
+                <p class="card-text" id="card-wind"></p>
+                <p class="card-text" id="card-humid"></p>
               </div>
+            </div>
 
-                <div class="card col">
-                  <div class="card-body">
-                    <h5 class="card-title" id="card-date"></h5>
-                    <img class="weatherIcon"></img>
-                    <p class="card-text" id="card-temp"></p>
-                    <p class="card-text" id="card-wind"></p>
-                    <p class="card-text" id="card-humid"></p>
-                  </div>
-                </div>
+            <div class="card col">
+              <div class="card-body">
+                <h5 class="card-title" id="card-date"></h5>
+                <img class="weatherIcon"></img>
+                <p class="card-text" id="card-temp"></p>
+                <p class="card-text" id="card-wind"></p>
+                <p class="card-text" id="card-humid"></p>
+              </div>
+            </div>
+
+            <div class="card col">
+              <div class="card-body">
+                <h5 class="card-title" id="card-date"></h5>
+                <img class="weatherIcon"></img>
+                <p class="card-text" id="card-temp"></p>
+                <p class="card-text" id="card-wind"></p>
+                <p class="card-text" id="card-humid"></p>
+              </div>
+            </div>
         </section>
       </div>
     </div>
