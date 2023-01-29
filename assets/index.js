@@ -113,7 +113,7 @@ console.log(retrievedParsedLocation);
     let message = retrievedParsedLocation[i].name;
 
     let button = document.createElement("button");
-
+    
     button.textContent = message;
     button.id = "historyBtn";
     searchHistory.prepend(button);

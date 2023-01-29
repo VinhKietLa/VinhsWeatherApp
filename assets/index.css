@@ -6,3 +6,30 @@
 #forecast {
     border: 1px solid black;
 }
+
+.lol {
+    padding-left: 0.5rem;
+}
+
+/* #historyBtn {
+    width: 30px;
+} */
+
+@media (min-width: 576px) { 
+
+    #history{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    #historyBtn {
+        margin-left: 0.1rem;
+        margin-top: 0.2rem;
+    }
+
+    #searchHistorySection {
+        margin-top: 0.2rem;
+    }
+
+
+
+ }
