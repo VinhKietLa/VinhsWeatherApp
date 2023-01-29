@@ -76,7 +76,7 @@ body {
 
 }
 
-@media (min-width: 576px) { 
+@media (min-width: 576px) and (max-width: 1024px){ 
 
     #search-button, #clear {
         width: 200px;
@@ -89,9 +89,28 @@ body {
     #historyBtn {
         height: 80px;
         width: 90px;
-        
-    
     }
 
 
+ }
+
+ @media (min-width: 1440px){ 
+
+    #search-button, #clear {
+        width: 300px;
+        height: 90px;
+    }
+    #form-heading {
+        text-align: left;
+    }
+
+    #historyBtn {
+        height: 80px;
+        width: 90px;
+    }
+
+
+    #fiveDaySection {
+        justify-content: center;
+    }
  }
