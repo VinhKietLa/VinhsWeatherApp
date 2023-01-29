@@ -3,9 +3,16 @@ body {
     color: #55e0ff!important;
 }
 
-
 .weather-header {
     background-color: black;
+}
+
+#form-heading {
+    text-align: center;
+}
+
+#search-form{
+    margin-top: 0.3rem;
 }
 
 #search-input {
@@ -71,19 +78,20 @@ body {
 
 @media (min-width: 576px) { 
 
-    #history{
-        flex-direction: row;
-        flex-wrap: wrap;
+    #search-button, #clear {
+        width: 200px;
+        height: 70px;
     }
-    #historyBtn {
-        margin-left: 0.1rem;
-        margin-top: 0.2rem;
+    #form-heading {
+        text-align: left;
     }
 
-    #searchHistorySection {
-        margin-top: 0.2rem;
+    #historyBtn {
+        height: 80px;
+        width: 90px;
+        
+    
     }
-    #fiveDaySection {
-        flex-direction: row;
-    }
+
+
  }
