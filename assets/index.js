@@ -44,6 +44,7 @@ function query (event) {
       )
         .then((response) => response.json())
         .then((weather) => {
+            console.log(weather);
           let cardDateToday = document.getElementById("card-date-today");
           let weatherIconToday = document.querySelector(".weatherIcon-today");
           let cardTempToday = document.getElementById("card-temp-today");
@@ -51,9 +52,9 @@ function query (event) {
           let cardHumidToday = document.getElementById("card-humid-today");
 
           let icons = weather.weather[0].icon;
-          cardDateToday.textContent = moment(weather.dt, "X").format(
+          cardDateToday.textContent = weather.name + ' ('+ moment(weather.dt, "X").format(
             "DD/MM/YYYY"
-          );
+          )+')';
           weatherIconToday.setAttribute(
             "src",
             "http://openweathermap.org/img/w/" + icons + ".png"
@@ -106,6 +107,8 @@ function displayHistory() {// this retrieves items within the local storage and 
   let storedLocation = localStorage.getItem("Location");
   let retrievedParsedLocation = JSON.parse(storedLocation);
 
+  if(retrievedParsedLocation != null) {
+console.log(retrievedParsedLocation);
   for (let i = 0; i < retrievedParsedLocation.length; i++) {
     let message = retrievedParsedLocation[i].name;
 
@@ -116,8 +119,13 @@ function displayHistory() {// this retrieves items within the local storage and 
     searchHistory.prepend(button);
   }
 }
+}
+displayHistory();
 
-clearHistory.addEventListener("click", () => {// this clears the local history in turn removing all the buttons.
+
+clearHistory.addEventListener("click", function() {// this clears the local history in turn removing all the buttons.
+    console.log('hi');
+
   localStorage.clear();
 });
 
