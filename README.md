@@ -24,4 +24,4 @@ Here is a preview of the app
 
 ![screenshot the workdayscheduler](assets/screenshotOfApp.png)
 
-[Click here for a Live preview](https://vinhkietla.github.io/Vinhs-WorkDayScheduler/)
+[Click here for a Live preview](https://vinhkietla.github.io/VinhsWeatherApp)
