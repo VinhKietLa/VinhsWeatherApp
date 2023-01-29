@@ -1,18 +1,29 @@
 let todaysWeather = document.getElementById("todaysWeather");
 let searchInput = document.getElementById("search-input");
-let searcBtn = document.getElementById("search-button");
+let searchBtn = document.getElementById("search-button");
 
 let searchHistory = document.getElementById("history");
 let clearHistory = document.getElementById("clear");
-searcBtn.addEventListener("click", function (event) {
+
+function query (event) {
   event.preventDefault();
 
-  let city = searchInput.value;
+  let city;
+    console.log(city);
+ if(searchInput.value == '') {
+    city = existingCity;
+    console.log(city);
+
+ } else {
+  city = searchInput.value;
+  console.log(city);
+
+ }
+ console.log(city);
 
   let location = localStorage.getItem("Location");
 
   let newLocationHistory = { name: city };
-  console.log(newLocationHistory);
   if (location) {
     location = JSON.parse(location);
     location.push(newLocationHistory);
@@ -28,14 +39,11 @@ searcBtn.addEventListener("click", function (event) {
     .then((response) => response.json())
     .then((cityList) => {
       let city = cityList[0];
-      console.log(city);
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&speed=miles/hour&temp=celcius&appid=3a26ce967f024afe0e2f03c5159310b9`
       )
         .then((response) => response.json())
         .then((weather) => {
-          console.log(weather);
-
           let cardDateToday = document.getElementById("card-date-today");
           let weatherIconToday = document.querySelector(".weatherIcon-today");
           let cardTempToday = document.getElementById("card-temp-today");
@@ -43,7 +51,6 @@ searcBtn.addEventListener("click", function (event) {
           let cardHumidToday = document.getElementById("card-humid-today");
 
           let icons = weather.weather[0].icon;
-          console.log(icons);
           cardDateToday.textContent = moment(weather.dt, "X").format(
             "DD/MM/YYYY"
           );
@@ -66,12 +73,6 @@ searcBtn.addEventListener("click", function (event) {
       let result = weather.list;
       let requiredIndexes = [7, 15, 23, 31, 39];
       let filteredResult = requiredIndexes.map((index) => result[index]);
-
-      console.log(filteredResult);
-      //   ; this returns the 6 arrays I need to loop through and display the weather stats
-
-      console.log(result);
-      // ;this returns the results
 
       //   let test = moment(1674874800, "X").format("DD/MM/YYYY HH:mm:ss");
       // this converts the DT unix timestamp
@@ -97,13 +98,12 @@ searcBtn.addEventListener("click", function (event) {
         cardHumid[i].textContent = "Humidity " + weather.main.humidity + " %";
       }
     });
-  displayHistory();
-});
+    displayHistory();
+};
 
-function displayHistory() {
+function displayHistory() {// this retrieves items within the local storage and displays them as buttons.
   searchHistory.innerHTML = "";
   let storedLocation = localStorage.getItem("Location");
-  console.log(storedLocation);
   let retrievedParsedLocation = JSON.parse(storedLocation);
 
   for (let i = 0; i < retrievedParsedLocation.length; i++) {
@@ -112,15 +112,36 @@ function displayHistory() {
     let button = document.createElement("button");
 
     button.textContent = message;
-
-    searchHistory.appendChild(button);
+    button.id = "historyBtn";
+    searchHistory.prepend(button);
   }
 }
-displayHistory();
 
-clearHistory.addEventListener("click", () => {
+clearHistory.addEventListener("click", () => {// this clears the local history in turn removing all the buttons.
   localStorage.clear();
 });
+
+searchHistory.addEventListener('click', function(event) {//runs when you click a button in the history
+    event.preventDefault();
+    if(event.target.matches("button")) {
+        searchInput.value = '';
+        let element = event.target;
+        console.log('hi');
+        console.log(element.innerHTML);
+        let evenHTML = element.innerHTML;
+
+        existingCity = evenHTML;
+        query(event);
+    }
+})
+
+searchBtn.addEventListener('click', query);//search button //
+
+let existingCity;
+//issues//
+
+//displayhistory is giving an error because there isn't anything in the history when you first load the page.
+
 
 // console.log(filteredResult); this returns the 6 arrays I need to loop through and display the weather stats
 
