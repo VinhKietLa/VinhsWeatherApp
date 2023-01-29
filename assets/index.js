@@ -34,7 +34,7 @@ if(event.target.id === "search-button" && searchInput.value == '') {
 
   localStorage.setItem("Location", JSON.stringify(savedLocation));
 
-  let queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=3a26ce967f024afe0e2f03c5159310b9`;
+  let queryURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=3a26ce967f024afe0e2f03c5159310b9`;
 
   fetch(queryURL)
     .then((response) => response.json())
