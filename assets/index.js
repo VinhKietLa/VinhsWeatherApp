@@ -1,58 +1,61 @@
 let todaysWeather = document.getElementById("todaysWeather");
-let searchInput = document.getElementById('search-input');
+let searchInput = document.getElementById("search-input");
 let searcBtn = document.getElementById("search-button");
 
 let searchHistory = document.getElementById("history");
-let clearHistory = document.getElementById('clear');
+let clearHistory = document.getElementById("clear");
 searcBtn.addEventListener("click", function (event) {
-event.preventDefault();
+  event.preventDefault();
 
-let city = searchInput.value;
+  let city = searchInput.value;
 
-let location = localStorage.getItem("Location");
+  let location = localStorage.getItem("Location");
 
-let newLocationHistory = {name : city};
-console.log(newLocationHistory);
-if(location) {
+  let newLocationHistory = { name: city };
+  console.log(newLocationHistory);
+  if (location) {
     location = JSON.parse(location);
     location.push(newLocationHistory);
-} else {
+  } else {
     location = [newLocationHistory];
-}
+  }
 
+  localStorage.setItem("Location", JSON.stringify(location));
 
-localStorage.setItem("Location", JSON.stringify(location));
-
-  let queryURL =
-    `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=3a26ce967f024afe0e2f03c5159310b9`;
+  let queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=3a26ce967f024afe0e2f03c5159310b9`;
 
   fetch(queryURL)
     .then((response) => response.json())
     .then((cityList) => {
       let city = cityList[0];
       console.log(city);
-       fetch(
+      fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&speed=miles/hour&temp=celcius&appid=3a26ce967f024afe0e2f03c5159310b9`
       )
-      .then((response) => response.json())
-      .then((weather) => {
-            console.log(weather);
+        .then((response) => response.json())
+        .then((weather) => {
+          console.log(weather);
 
-            let cardDateToday = document.getElementById("card-date-today");
-            let weatherIconToday = document.querySelector(".weatherIcon-today");
-            let cardTempToday = document.getElementById("card-temp-today");
-            let cardWindToday = document.getElementById("card-wind-today");
-            let cardHumidToday = document.getElementById("card-humid-today");
+          let cardDateToday = document.getElementById("card-date-today");
+          let weatherIconToday = document.querySelector(".weatherIcon-today");
+          let cardTempToday = document.getElementById("card-temp-today");
+          let cardWindToday = document.getElementById("card-wind-today");
+          let cardHumidToday = document.getElementById("card-humid-today");
 
-            let icons = weather.weather[0].icon;
-            console.log(icons);
-           cardDateToday.textContent = moment(weather.dt, "X").format("DD/MM/YYYY");
-           weatherIconToday.setAttribute("src","http://openweathermap.org/img/w/" + icons + ".png");
-            cardTempToday.textContent = "Temp " + weather.main.temp + " °C";
-            cardWindToday.textContent = "Wind " + weather.wind.speed + " MPH";
-            cardHumidToday.textContent = "Humidity " + weather.main.humidity + " %";
-          
-      })
+          let icons = weather.weather[0].icon;
+          console.log(icons);
+          cardDateToday.textContent = moment(weather.dt, "X").format(
+            "DD/MM/YYYY"
+          );
+          weatherIconToday.setAttribute(
+            "src",
+            "http://openweathermap.org/img/w/" + icons + ".png"
+          );
+          cardTempToday.textContent = "Temp " + weather.main.temp + " °C";
+          cardWindToday.textContent = "Wind " + weather.wind.speed + " MPH";
+          cardHumidToday.textContent =
+            "Humidity " + weather.main.humidity + " %";
+        });
 
       return fetch(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&speed=miles/hour&temp=celcius&appid=3a26ce967f024afe0e2f03c5159310b9`
@@ -61,16 +64,16 @@ localStorage.setItem("Location", JSON.stringify(location));
     .then((response) => response.json())
     .then((weather) => {
       let result = weather.list;
-      let requiredIndexes = [2, 10, 18, 26, 34];
+      let requiredIndexes = [7, 15, 23, 31, 39];
       let filteredResult = requiredIndexes.map((index) => result[index]);
 
-      console.log(filteredResult)
-    //   ; this returns the 6 arrays I need to loop through and display the weather stats
+      console.log(filteredResult);
+      //   ; this returns the 6 arrays I need to loop through and display the weather stats
 
-      console.log(result)
-    // ;this returns the results
+      console.log(result);
+      // ;this returns the results
 
-    //   let test = moment(1674874800, "X").format("DD/MM/YYYY HH:mm:ss"); 
+      //   let test = moment(1674874800, "X").format("DD/MM/YYYY HH:mm:ss");
       // this converts the DT unix timestamp
 
       let cardDate = document.querySelectorAll("#card-date");
@@ -94,36 +97,30 @@ localStorage.setItem("Location", JSON.stringify(location));
         cardHumid[i].textContent = "Humidity " + weather.main.humidity + " %";
       }
     });
-    displayHistory();
+  displayHistory();
 });
 
-
 function displayHistory() {
-    searchHistory.innerHTML = ''
-    let storedLocation = localStorage.getItem("Location");
-    console.log(storedLocation);
-    let retrievedParsedLocation = JSON.parse(storedLocation);
+  searchHistory.innerHTML = "";
+  let storedLocation = localStorage.getItem("Location");
+  console.log(storedLocation);
+  let retrievedParsedLocation = JSON.parse(storedLocation);
 
-    for (let i = 0; i < retrievedParsedLocation.length; i++) {
+  for (let i = 0; i < retrievedParsedLocation.length; i++) {
+    let message = retrievedParsedLocation[i].name;
 
-    let message = retrievedParsedLocation[i].name
-
-    let button = document.createElement('button');
+    let button = document.createElement("button");
 
     button.textContent = message;
-    
+
     searchHistory.appendChild(button);
-    }
+  }
 }
 displayHistory();
 
-clearHistory.addEventListener('click', () => {
-    localStorage.clear();
-})
-
-
-
-
+clearHistory.addEventListener("click", () => {
+  localStorage.clear();
+});
 
 // console.log(filteredResult); this returns the 6 arrays I need to loop through and display the weather stats
 
@@ -136,16 +133,14 @@ clearHistory.addEventListener('click', () => {
 
 //PSEUDO CODE//
 
-
 //localstorage is now complete
 
 //I need to get the storage names and display these in the history section//
-//Add an event listener to the history section and if user clicks on the history name, add a condition to use the second value pair in the fetch query endpoint. 
-
+//Add an event listener to the history section and if user clicks on the history name, add a condition to use the second value pair in the fetch query endpoint.
 
 //what do I need to store and retrieve from local storage for it to work when the user clicks on the city search history for the function to work?
-        // city name so that the query runs for that city plus the user input?
-        // get these items in the storage and use it in the function if the user clicks on a search area? 
+// city name so that the query runs for that city plus the user input?
+// get these items in the storage and use it in the function if the user clicks on a search area?
 
 // I've created the required function to show both the weather on the current day as well as the five days for a predetermined city.
 
