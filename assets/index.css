@@ -1,10 +1,10 @@
 body {
-    background-color: #313544ff!important;
+    background-color: rgb(0, 0, 0)!important;
     color: #55e0ff!important;
 }
 
 .weather-header {
-    background-color: #55e0ff;
+    background-color: #55e0ff!important;
 }
 
 #form-heading {
@@ -130,6 +130,7 @@ body {
     .card {
         height: 250px !important;
         margin-right: 1rem;
+        background-color: black!important;
     }
 
 
