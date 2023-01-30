@@ -1,61 +1,61 @@
-let todaysWeather = document.getElementById("todaysWeather");
-let searchInput = document.getElementById("search-input");
-let searchBtn = document.getElementById("search-button");
+//Global variables//
+let todaysWeather = document.getElementById("todaysWeather"); //todays weather section
+let searchInput = document.getElementById("search-input"); //city search input
+let searchBtn = document.getElementById("search-button"); //search btn
+let searchHistory = document.getElementById("history"); //Your history section
+let clearHistory = document.getElementById("clear"); //clear history button
+let cardDateToday = document.getElementById("card-date-today"); //variable for the search city in the today section
 
-let searchHistory = document.getElementById("history");
-let clearHistory = document.getElementById("clear");
-
-function query (event) {
-  event.preventDefault();
-  console.log(searchInput.value)
-if(event.target.id === "search-button" && searchInput.value == '') {
-  return alert('You must enter a city name!')
-}
-
-
+//This is the core function of the application//.
+function query(event) {
+  event.preventDefault(); //prevents the page from submitting when the user clicks the search button//
   let city;
- if(searchInput.value === '') {
+
+  if (event.target.id === "search-button" && searchInput.value == "") {
+    return alert("You must enter a city name!");//This will alert the user that they need to enter a city name and the return stops the function from executing any further.
+  } else if (event.target.id === "historyBtn") {
+    //if the user selects an item from the 'your history' then the queried 'city' will equal the event.target name specified in the searchHistory function.
     city = existingCity;
-
- } else {
-  city = searchInput.value;
-
- }
-
-  let savedLocation = localStorage.getItem("Location");
-
-  let newLocationHistory = { name: city };
-  if (savedLocation) {
-    savedLocation = JSON.parse(savedLocation);
-    savedLocation.push(newLocationHistory);
   } else {
+    city = searchInput.value;//this is a normal type city name and hit search button condition.
+  }
+
+  let savedLocation = localStorage.getItem("Location"); //This will check the local storage for a key called "Location"
+
+  console.log(savedLocation);
+
+  let newLocationHistory = { name: city };//This object is used for setting a new key/value pair in local storage, name/city.
+
+  if (savedLocation) {//If 'Location' exists in localStorage then 
+    savedLocation = JSON.parse(savedLocation);//the localStorage is parsed from a string to a javascript object.
+    savedLocation.push(newLocationHistory);//the current city object is pushed onto the savedLocations array.
+
+  } else {//If savedLocation was null or undefined, then savedLocation is assigned an array containing the newLocationHistory object.
     savedLocation = [newLocationHistory];
   }
 
-  localStorage.setItem("Location", JSON.stringify(savedLocation));
+  localStorage.setItem("Location", JSON.stringify(savedLocation));//he savedLocation array is stringified using JSON.stringify() and stored in the local storage using the setItem() method and the key "Location".
 
-  let queryURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=3a26ce967f024afe0e2f03c5159310b9`;
+  let queryURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=3a26ce967f024afe0e2f03c5159310b9`;//The API endpoint uses a city variable which is based on the conditions above.
 
   fetch(queryURL)
     .then((response) => response.json())
     .then((cityList) => {
       let city = cityList[0];
+      cardDateToday.textContent = city.name;//From the response, the cityname is taken using dot notation and set onto the web page.
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&speed=miles/hour&temp=celcius&appid=3a26ce967f024afe0e2f03c5159310b9`
-      )
+      )//using the lat and long from the previous fetch, a new fetch is created to display todays date weather.
         .then((response) => response.json())
         .then((weather) => {
-            console.log(weather);
-          let cardDateToday = document.getElementById("card-date-today");
           let weatherIconToday = document.querySelector(".weatherIcon-today");
           let cardTempToday = document.getElementById("card-temp-today");
           let cardWindToday = document.getElementById("card-wind-today");
           let cardHumidToday = document.getElementById("card-humid-today");
 
           let icons = weather.weather[0].icon;
-          cardDateToday.textContent = weather.name + ' ('+ moment(weather.dt, "X").format(
-            "DD/MM/YYYY"
-          )+')';
+          cardDateToday.textContent +=
+            " (" + moment(weather.dt, "X").format("DD/MM/YYYY") + ")";
           weatherIconToday.setAttribute(
             "src",
             "http://openweathermap.org/img/w/" + icons + ".png"
@@ -68,7 +68,7 @@ if(event.target.id === "search-button" && searchInput.value == '') {
 
       return fetch(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&speed=miles/hour&temp=celcius&appid=3a26ce967f024afe0e2f03c5159310b9`
-      );
+      );// the fetch is returned with the same lat and long details for a different API endpoint to display the weather for the next 5 days.
     })
     .then((response) => response.json())
     .then((weather) => {
@@ -94,55 +94,53 @@ if(event.target.id === "search-button" && searchInput.value == '') {
         cardHumid[i].textContent = "Humidity " + weather.main.humidity + " %";
       }
     });
-    displayHistory();
-};
+  displayHistory();//at the end of the function this is called to display any local storage items.
+}
 
-function displayHistory() {// this retrieves items within the local storage and displays them as buttons.
+function displayHistory() {
+  // this retrieves items within the local storage and displays them as buttons.
   searchHistory.innerHTML = "";
   let storedLocation = localStorage.getItem("Location");
   let retrievedParsedLocation = JSON.parse(storedLocation);
 
-  if(retrievedParsedLocation != null) {
-console.log(retrievedParsedLocation);
-  for (let i = 0; i < retrievedParsedLocation.length; i++) {
-    let message = retrievedParsedLocation[i].name;
+  if (retrievedParsedLocation != null) {
+    for (let i = 0; i < retrievedParsedLocation.length; i++) {
+      let message = retrievedParsedLocation[i].name;
 
-    let button = document.createElement("button");
+      let button = document.createElement("button");
 
-    button.textContent = message;
-    button.id = "historyBtn";
-    searchHistory.prepend(button);
+      button.textContent = message;
+      button.id = "historyBtn";
+      searchHistory.prepend(button);
+    }
   }
 }
-}
-displayHistory();
+displayHistory();// this is called when the page loads to show any local storage items as buttons. 
 
+let existingCity;//This variable will store the HTML of the selected event.target in the 'Your history section'
 
-clearHistory.addEventListener("click", function() {// this clears the local history in turn removing all the buttons.
-  localStorage.clear();
+searchHistory.addEventListener("click", function (event) {
+  //runs when you click a button in the history
+  event.preventDefault();
+  if (event.target.matches("button")) {
+    searchInput.value = "";
+    let element = event.target;
+    let eventHTML = element.innerHTML;
+    existingCity = eventHTML;
+    query(event);
+  }
 });
 
-let existingCity;
+searchBtn.addEventListener("click", query); //When the user enters a city name and clicks search it runs the query function.
 
-searchHistory.addEventListener('click', function(event) {//runs when you click a button in the history
-    event.preventDefault();
-    if(event.target.matches("button")) {
-        searchInput.value = '';
-        let element = event.target;
-        let evenHTML = element.innerHTML;
-
-        existingCity = evenHTML;
-        query(event);
-    }
-})
-
-searchBtn.addEventListener('click', query);//search button //
-
+clearHistory.addEventListener("click", function () {
+  // This clears the local history in turn removing all the buttons fr the 'Your history' section.
+  localStorage.clear();
+});
 
 //issues//
 
 //displayhistory is giving an error because there isn't anything in the history when you first load the page.
-
 
 // console.log(filteredResult); this returns the 6 arrays I need to loop through and display the weather stats
 
